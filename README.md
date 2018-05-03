@@ -24,13 +24,14 @@
     );
 
 ## create a geo index for the data
-    db.crashdata.createIndex({geoloc: "2dsphere"});
+    db.crashdata.createIndex({location: "2dsphere"});
 
 
 ## sample query for geo search
     db.runCommand( {
        geoNear: "crashdata" ,
-       near: { type: "Point" , coordinates: [ -82.791618, 39.910620 ] } ,
+       near: { type: "Point" , coordinates: [ -82.899808, 40.171602ls
+        ] } ,
        spherical: true,
-       maxDistance: 10
+       maxDistance: 100
     } );

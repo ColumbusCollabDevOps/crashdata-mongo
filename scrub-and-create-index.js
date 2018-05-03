@@ -15,4 +15,4 @@ db.runCommand(
     ]
 );
 
-db.crashdata.createIndex({geoloc: "2dsphere"});
+db.crashdata.createIndex({location: "2dsphere"});
