@@ -2,7 +2,7 @@
 
 
 ## import csv data into a collection
-mongoimport -c crashdata --type csv --headerline /tmp/fairfield_crashes_14_16.csv
+    mongoimport -c crashdata --type csv --headerline /tmp/fairfield_crashes_14_16.csv
 
 ## clean empty rows, Some crash rows have now lat/long
     db.runCommand(
