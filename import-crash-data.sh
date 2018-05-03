@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Creating crashdata db"
-mongo --eval "db.createCollection('crashdata');"
+mongo --verbose --eval "db.createCollection('crashdata');"
 
 for crashfile in /tmp/crashdata/*.csv; do
     echo "processing $crashfile"
