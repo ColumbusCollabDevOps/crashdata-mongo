@@ -1,5 +1,4 @@
 /** removes rows with no lat data*/
-log('Removing empty lat long rows');
 db.runCommand(
     {
        delete: "crashdata",
@@ -9,7 +8,6 @@ db.runCommand(
  );
 
 /** a couple object id's have some garbage spaces in them. deleting as well */
-log('removing weird object id fields');
  db.runCommand(
     {
        delete: "crashdata",
@@ -18,7 +16,7 @@ log('removing weird object id fields');
     }
  );
 
- log('Creating geoJSON Point field on collection using lat and long fields');
+ /** Create geoJSON Point data field named location on the collection */
  db.crashdata.aggregate(
     [
         { "$addFields": { 
@@ -28,5 +26,5 @@ log('removing weird object id fields');
     ]
 );
 
-log('Creating index for crashdata collection');
+/** Build a 2dsphere index for the crashdata collection */
 db.crashdata.createIndex({location: "2dsphere"});
