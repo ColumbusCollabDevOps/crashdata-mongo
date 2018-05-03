@@ -8,3 +8,5 @@ for crashfile in /tmp/crashdata/*.csv; do
     mongoimport -c crashdata --type csv --headerline $crashfile
 done
 
+echo "Scrubbing empty geo data and building index"
+mongo scrub-and-create-index.js
