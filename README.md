@@ -30,8 +30,7 @@
 ## sample query for geo search
     db.runCommand( {
        geoNear: "crashdata" ,
-       near: { type: "Point" , coordinates: [ -82.899808, 40.171602ls
-        ] } ,
+       near: { type: "Point" , coordinates: [ -82.899808, 40.171602 ] } ,
        spherical: true,
-       maxDistance: 100
+       maxDistance: 10
     } );
