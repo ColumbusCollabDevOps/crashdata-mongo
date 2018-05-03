@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Creating crashdata db"
-mongo create-crash-collection.js
+mongo --eval "db.createCollection('crashdata');"
 
 for crashfile in /tmp/crashdata/*.csv; do
     echo "processing $crashfile"
@@ -9,4 +9,4 @@ for crashfile in /tmp/crashdata/*.csv; do
 done
 
 echo "Scrubbing empty geo data and building index"
-mongo scrub-and-create-index.js
+mongo --verbose scrub-and-create-index.js
