@@ -1,31 +1,16 @@
-# SmartColumbus Crash data imported into mongo db
+# SmartColumbus Crash data imported into mongo db container
 
+This project builds a container for crash data provided by the smart columbus hackaton team. 
 
-## import csv data into a collection
-    mongoimport -c crashdata --type csv --headerline /tmp/fairfield_crashes_14_16.csv
+## Usage
+Clone this repo, build the image, run image, shell into the container and run */tmp/import-crash-data.sh* to load data, scrub and index. 
 
-## clean empty rows, Some crash rows have now lat/long
-    db.runCommand(
-       {
-          delete: "crashdata",
-          deletes: [ { q: { ODOT_LATITUDE_NBR: "" }, limit: 0 } ],
-          writeConcern: { w: "majority", wtimeout: 5000 }
-       }
-    );
+    docker build -t crashdata .
+    docker run -d --name crashdata crashdata
+    docker exec -it crashdata bash
+    /tmp/import-crash-data.sh
 
-## add geoJSON field named location
-    db.crashdata.aggregate(
-        [
-            { "$addFields": { 
-                "location": { type:"Point", coordinates: [ "$ODOT_LONGITUDE_NBR", "$ODOT_LATITUDE_NBR" ] } 
-            }},
-            { "$out": "crashdata" }
-        ]
-    );
-
-## create a geo index for the data
-    db.crashdata.createIndex({location: "2dsphere"});
-
+If all goes well you should be able run the following spatial query to find a crash within radius of a GPS coordinate.
 
 ## sample query for geo search
     db.runCommand( {
